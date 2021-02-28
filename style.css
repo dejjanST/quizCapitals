@@ -20,6 +20,37 @@ body {
     overflow: hidden;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
     position: relative;
+    display: none;
+}
+
+#startQuiz {
+    position: absolute;
+    z-index: 10;
+    background-color: #8e44ad;
+    border-radius: 2px;
+    padding: 20px 60px;
+    color: white;
+    font-family: inherit;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+#startQuiz:hover {
+    background-color: #732d91;
+}
+
+.timer {
+    background-color: #8e44ad;
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    color: white;
+    font-family: inherit;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-align: center;
 }
 
 .quiz-header {

@@ -118,29 +118,51 @@ let score = 0;
 var count = 1;
 var questions = [];
 var quizHeader = document.getElementById('quizHeader');
+var timerValue = 30;
 
-loadQuiz();
-
-function loadQuiz() {
-    do{
-        currentQuestion = Math.round(Math.random() * 10);
-    }while(questions.includes(currentQuestion))
-    
-    console.log(currentQuestion);
-    questions.push(currentQuestion);
-
-    // unchecked at start
-    const answersEls = document.querySelectorAll(".answer");
-    answersEls.forEach((answer) => answer.checked = false);
-
-    console.log(quizData[currentQuestion].question);
-    questionEl.innerText = quizData[currentQuestion].question;
-    a_text.innerText = quizData[currentQuestion].a;
-    b_text.innerText = quizData[currentQuestion].b;
-    c_text.innerText = quizData[currentQuestion].c;
-    d_text.innerText = quizData[currentQuestion].d;
+document.getElementById('startQuiz').onclick = function() {
+    document.querySelector('.quiz-container').style.display = 'block';
+    this.style.display = 'none';
+    loadQuiz();
+    startTimer();
 }
 
+function loadQuiz() {
+        do{
+            currentQuestion = Math.round(Math.random() * 10);
+        }while(questions.includes(currentQuestion))
+        
+        questions.push(currentQuestion);
+    
+        // unchecked at start
+        const answersEls = document.querySelectorAll(".answer");
+        answersEls.forEach((answer) => answer.checked = false);
+    
+        questionEl.innerText = quizData[currentQuestion].question;
+        a_text.innerText = quizData[currentQuestion].a;
+        b_text.innerText = quizData[currentQuestion].b;
+        c_text.innerText = quizData[currentQuestion].c;
+        d_text.innerText = quizData[currentQuestion].d;
+}
+
+function startTimer() {
+    action = setInterval(() => {
+        timerValue-=1;
+        document.getElementById('timerValue').innerHTML = timerValue;
+
+        if(timerValue == 0) {
+            kraj();
+        }
+    }, 1000);
+}
+
+function kraj() {
+        clearInterval(action);
+        document.querySelector('.timer').innerHTML = 'Game Over';
+        quizHeader.style.textAlign = 'center';
+        quizHeader.innerHTML = 'Your score is '+score+'/10';
+        submitBtn.innerHTML = 'Restart'
+}
 
 submitBtn.addEventListener('click', () => {
     if(submitBtn.innerHTML === 'Restart') {
@@ -157,13 +179,11 @@ submitBtn.addEventListener('click', () => {
     
     count++;
 
-    if(count < 11) {
-        loadQuiz();
-    } else {
-        quizHeader.style.textAlign = 'center';
-        quizHeader.innerHTML = 'Your score is '+score+'/10';
-        submitBtn.innerHTML = 'Restart'
-    }  
+    if(count == prasanja.length) {
+        kraj();
+    }
+
+    loadQuiz();
 });   
 
 
